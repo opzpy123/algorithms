@@ -1,11 +1,11 @@
 package normal;
 
-import javafx.util.Pair;
+import jdk.internal.util.xml.impl.Pair;
 
 import java.util.*;
 
 public class TimeMap {
-    Map<String, List<Pair<Integer, String>>> M;
+    Map<String, List<Entry<Integer, String>>> M;
 
     public TimeMap() {
         M = new HashMap();
@@ -13,17 +13,17 @@ public class TimeMap {
 
     public void set(String key, String value, int timestamp) {
         if (!M.containsKey(key))
-            M.put(key, new ArrayList<Pair<Integer, String>>());
+            M.put(key, new ArrayList<Entry<Integer, String>>());
 
-        M.get(key).add(new Pair(timestamp, value));
+        M.get(key).add(new Entry(timestamp, value));
     }
 
     public String get(String key, int timestamp) {
         if (!M.containsKey(key)) return "";
 
-        List<Pair<Integer, String>> A = M.get(key);
-        int i = Collections.binarySearch(A, new Pair<Integer, String>(timestamp, "{"),
-                (a, b) -> Integer.compare(a.getKey(), b.getKey()));
+        List<Entry<Integer, String>> A = M.get(key);
+        int i = Collections.binarySearch(A, new Entry<>(timestamp, "{"),
+                Comparator.comparingInt(Entry::getKey));
 
         if (i >= 0)
             return A.get(i).getValue();
@@ -31,6 +31,45 @@ public class TimeMap {
             return "";
         else
             return A.get(-i-2).getValue();
+    }
+
+    private class Entry<K,V>{
+        private K key;
+        private V value;
+
+        public Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public void setKey(K key) {
+            this.key = key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public void setValue(V value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Entry<?, ?> entry = (Entry<?, ?>) o;
+            return Objects.equals(key, entry.key) && Objects.equals(value, entry.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key, value);
+        }
     }
 
 }

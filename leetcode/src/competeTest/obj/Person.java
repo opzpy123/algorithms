@@ -1,8 +1,6 @@
 package competeTest.obj;
 
-import lombok.Data;
 
-//@Data
 public class Person {
 	private String name="张三";
 	private void showName(){

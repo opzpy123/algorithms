@@ -1,9 +1,6 @@
 package competeTest.week.week6_20;
 
-import lombok.var;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class LargestOddNumber {
 	public static void main(String[] args) {
