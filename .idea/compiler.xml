@@ -13,8 +13,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="acm" target="1.8" />
-      <module name="nowcoder" target="1.8" />
+      <module name="acm" target="1.5" />
+      <module name="nowcoder" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
