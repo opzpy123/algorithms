@@ -1,7 +1,10 @@
 package normal;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EvalRPN {
 	public static void main(String[] args) {
@@ -14,29 +17,20 @@ public class EvalRPN {
 		System.out.println(evalRPN.evalRPN(strings3));
 	}
 	public int evalRPN(String[] tokens) {
-		Stack<Integer> operaStack = new Stack<>();
-		for (int i = 0; i < tokens.length; i++) {
-			if(tokens[i].equals("+")){
-				int x = operaStack.pop();
-				int y = operaStack.pop();
-				operaStack.push(y+x);
-			}else if(tokens[i].equals("-")){
-				int x = operaStack.pop();
-				int y = operaStack.pop();
-				operaStack.push(y-x);
-			} else if(tokens[i].equals("*")){
-				int x = operaStack.pop();
-				int y = operaStack.pop();
-				operaStack.push(y*x);
-			} else if(tokens[i].equals("/")){
-				int x = operaStack.pop();
-				int y = operaStack.pop();
-				operaStack.push(y/x);
-			}else {
-				//当前的是数字
-				operaStack.push(Integer.parseInt(tokens[i]));
+		Stack<Integer> stack = new Stack<>();
+		List<String> operators = Stream.of("+", "-", "*", "/").collect(Collectors.toList());
+		for (String token : tokens) {
+			if(!operators.contains(token)){
+				stack.push(Integer.parseInt(token));
+				continue;
 			}
+			Integer elem1 = stack.pop();
+			Integer elem2 = stack.pop();
+			if(token.equals("+"))stack.push(elem2+elem1);
+			if(token.equals("-"))stack.push(elem2-elem1);
+			if(token.equals("*"))stack.push(elem2*elem1);
+			if(token.equals("/"))stack.push(elem2/elem1);
 		}
-		return operaStack.pop();
+		return stack.pop();
 	}
 }
