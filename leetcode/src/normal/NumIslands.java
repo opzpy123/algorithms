@@ -1,7 +1,5 @@
 package normal;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 public class NumIslands {
     public int numIslands(char[][] grid) {
         int islandNum = 0;
