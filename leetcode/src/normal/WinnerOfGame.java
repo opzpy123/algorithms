@@ -1,25 +1,23 @@
 package normal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class WinnerOfGame {
     public static void main(String[] args) {
-        AtomicReference<String> str = new AtomicReference<>("asdas");
-        List<Integer> integers = List.of(1, 2, 3, 4, 5, 6, 7, 8);
-        integers.forEach(a->{
-            str.set(a+str.get());
-        });
-        System.out.println(str);
-
-
-//        WinnerOfGame winnerOfGame = new WinnerOfGame();
-//        System.out.println(winnerOfGame.winnerOfGame("AAABABB"));
-//        System.out.println(winnerOfGame.winnerOfGame("AA"));
-//        System.out.println(winnerOfGame.winnerOfGame("ABBBBBBBAAA"));
-//        System.out.println(winnerOfGame.winnerOfGame("ABBBBBBBAAA"));
+        String str = "  {\n" +
+                "      fieldName: 'partAssemblyExt.column0',\n"+
+                "   },";
+        for (int i = 1; i <=40 ; i++) {
+            str=str.replace("column"+(i-1),"column"+i);
+            str=str.replace("属性"+(i-1),"属性"+i);
+            System.out.println(str);
+        }
     }
+
+
     public boolean winnerOfGame(String a) {
         //遍历一遍判断有多少个满足的可删除的点就行了
         int sum = 0;
